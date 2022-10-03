@@ -1,34 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+  <a href="https://goldavenue.com">
+    <img src="https://www.goldavenue.com/packs/media/src/images/logos/logo_main-dfe6c41ac4008916aee56a271fccfafd.svg" height="128">
+    <h1 align="center">Technical Test - Next.js and Typescript</h1>
+  </a>
+</p>
+
+<p align="center">
+  <a aria-label="Node version" href="https://nodejs.org/en/">
+    <img src="https://img.shields.io/badge/node->=%20v16-red">
+  </a>
+  <a aria-label="NPM version" href="https://www.npmjs.com/">
+    <img alt="" src="https://img.shields.io/badge/npm->=%20v8-blue">
+  </a>
+  <a aria-label="Typescript version" href="https://www.typescriptlang.org/">
+    <img alt="" src="https://img.shields.io/badge/typescript-4.7.2-yellow">
+  </a>
+  <a aria-label="React version" href="https://reactjs.org/">
+    <img alt="" src="https://img.shields.io/badge/react-18.2.0-green">
+  </a>
+</p>
+
+## Introduce
+
+It's a pokemon list.
+
+#### Pokemon List
+
+- We want to see all the pokemon on the page by default.
+- We can search by name every pokemon and you must show every pokemon matched with the searched string.
+- Threshold Power field: When you put a value (pokemon power), you must update the count value and count every pokemon with the power threshold. Example: if you put 319, you must return every pokemon with power strictly above 319.
+- Count: must show the current count of pokemon returned by your search input and/or power threshold.
+- Min: you must return the minium pokemon power of the list. It must be worked with search
+- Max: you must return the maximum pokemon power of the list. It must be worked with search
+  Example : [Search part](with-search.png) [Power threshold part](with-threshold.png).
+
+#### Pokemon view
+
+- When you click on a row (pokemon in table), you must show this pokemon in a new page (Page pokemon ex: /pokemon/2344). You must show in this page, all properties of pokemon and this image (available in public/images folder). 
+A next button and a previous button must be display to access on previous or next pokemon (based on id logic).
+
+
+#### Unit test
+
+- Make unit test on components, helpers, endpoint, ...
 
 ## Getting Started
 
-First, run the development server:
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+[Page list pokemon](http://localhost:3000/) can be accessed on http://localhost:3000/.
+[Page pokemon](http://localhost:3000/pokemon/2344) can be accessed on http://localhost:3000/pokemon/2344.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/pokemons](http://localhost:3000/api/pokemons). This endpoint can be edited in `pages/api/pokemons.ts`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+#### Install the dependencies
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+@user:~$ npm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Run the project
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+@user:~$ npm run dev
+```
 
-## Deploy on Vercel
+#### Test the project
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+@user:~$ npm run test
+```
