@@ -1,7 +1,6 @@
 import React from "react";
 import type { ReactElement } from "react";
-import { createGlobalStyle } from "styled-components";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 export const Container = styled.div`
   padding: 0 2rem;
@@ -51,7 +50,7 @@ const GlobalStyles = createGlobalStyle`
         color-scheme: dark;
     }
     body {
-        color: white;
-        background: black;
+        color: #f6f6f6;
+        background: #222;
     }
 `;
