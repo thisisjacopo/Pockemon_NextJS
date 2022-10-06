@@ -10,6 +10,8 @@ const Button = styled.button`
   font-size: 22px;
   margin: 16px;
   cursor: pointer;
+  padding-left: 16px;
+  padding-right: 16px;
   :hover {
     color: #333;
     background-color: #f5f5f5;
@@ -28,8 +30,7 @@ const Input = styled.input`
   color: #333;
 `;
 
-const NameSearch = ({handleSearchName}) => {
-  
+const NameSearch = ({ handleSearchName }) => {
   const handleNameSearch = () => {
     const input = document.getElementById("name-search") as HTMLInputElement;
     const value = input?.value.toLowerCase();

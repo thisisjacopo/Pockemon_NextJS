@@ -36,6 +36,7 @@ export async function getServerSideProps({
       special_attack: 65,
       special_defense: 65,
       speed: 45,
+      total_points: 520,
     };
     return { props: pokemonExample };
   } catch (error) {

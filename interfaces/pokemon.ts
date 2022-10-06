@@ -11,3 +11,9 @@ export interface Pokemon {
   total_points: number;
   image?: HTMLImageElement;
 }
+
+
+export interface ISignUpData {
+  firstName: string;
+  emailAddress: string;
+}

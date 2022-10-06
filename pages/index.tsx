@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { Layout } from "../components/Layout";
 import { Pokemon } from "../interfaces/pokemon";
@@ -29,18 +29,21 @@ const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
   const [pokemonsList, setPokemonsList] = useState(pokemons);
   const [alertNameMessage, setAlertNameMessage] = useState("");
   const [alertPowerMessage, setAlertPowerMessage] = useState("");
+  const [minPower, setMinPower] = useState(0);
+  const [maxPower, setMaxPower] = useState(0);
+  const [totalNum, setTotalNum] = useState(0);
 
   const handleSearchName = (searchName: string) => {
     if (searchName.length === 0) {
       setPokemonsList(pokemons);
       setAlertNameMessage("Please enter something to search...");
     } else {
-      setPokemonsList(
-        pokemons.filter((poke) =>
-          poke.name.toLocaleLowerCase().includes(searchName)
-        )
+      let newList = pokemons.filter((poke) =>
+        poke.name.toLocaleLowerCase().includes(searchName)
       );
+      setPokemonsList(newList);
       setAlertNameMessage("");
+      handlePowersRange(newList);
     }
   };
 
@@ -49,12 +52,35 @@ const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
       setPokemonsList(pokemons);
       setAlertPowerMessage("Please enter a valid number...");
     } else {
-      setPokemonsList(
-        pokemons.filter((poke) => poke.total_points >= searchNum)
-      );
+      let newList = pokemons.filter((poke) => poke.total_points >= searchNum);
+      setPokemonsList(newList);
       setAlertPowerMessage("");
+      handlePowersRange(newList);
     }
   };
+
+  const handlePowersRange = (pokemonsList: Pokemon[]) => {
+    console.log(pokemonsList, "handlePowersRange");
+    let powersList = Array();
+
+    pokemonsList.forEach((poke) => {
+      console.log(poke.total_points);
+      return powersList.push(poke.total_points);
+    });
+
+    setMaxPower(powersList.sort((a, b) => b - a)[0]);
+    setMinPower(powersList.sort((a, b) => a - b)[0]);
+
+    console.log(maxPower, "dfd");
+  };
+
+  useEffect(() => {
+    setTotalNum(pokemonsList.length);
+  }, [pokemonsList]);
+
+  useEffect(() => {
+    handlePowersRange(pokemons);
+  }, []);
 
   return (
     <>
@@ -68,10 +94,10 @@ const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
         <p style={{ color: "red" }}>{alertNameMessage}</p>
         <PowerSearch handleSearchPower={handleSearchPower} />
         <p style={{ color: "red" }}>{alertPowerMessage}</p>
-        <div>Power threshold</div>
-        <div>Count over threshold: </div>
-        <div>Min: </div>
-        <div>Max: </div>
+        <div>Power threshold: {minPower}</div>
+        <div>Count over threshold: {totalNum}</div>
+        <div>Min: {minPower}</div>
+        <div>Max: {maxPower}</div>
       </div>
       <h1>Pokemon list</h1>
       <List>
