@@ -33,7 +33,9 @@ function Image({ style, src }: ImageProps) {
 }
 
 const PokemonCard = ({ pokemon }: any, totalPoints: number): JSX.Element => {
-  const imageSrc = `images/${pokemon.name.toLowerCase()}.jpg`;
+  const imageSrc = `images/${pokemon.name.toLowerCase()}.jpg`; 
+  //* this should be perfected for not missing names that include special characters
+  
   let imgStyles = {
     width: "150px",
     height: "150px",

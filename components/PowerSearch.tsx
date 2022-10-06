@@ -25,14 +25,38 @@ const Input = styled.input`
   border: none;
   border-radius: 3px;
   min-width: 300px;
+  color: #333;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
 `;
 
-const PowerSearch = () => (
-  <form>
-    <label htmlFor="header-search">Filter by power</label>
-    <Input type="text" placeholder="375, 1000, ..." name="search name" />
-    <Button type="submit">Find</Button>
-  </form>
-);
+const PowerSearch = ({ handleSearchPower }) => {
+  const handlePowerSearch = () => {
+    const input = document.getElementById("power-search") as HTMLInputElement;
+    const value = input?.value;
+
+    handleSearchPower(value);
+  };
+
+  return (
+    <form>
+      <label htmlFor="header-search">Filter by power</label>
+      <Input
+        type="number"
+        placeholder="375, 1000, ..."
+        name="power name"
+        id="power-search"
+      />
+      <Button
+        type="submit"
+        onClick={(e) => {
+          e.preventDefault();
+          handlePowerSearch();
+        }}>
+        Find
+      </Button>
+    </form>
+  );
+};
 
 export default PowerSearch;

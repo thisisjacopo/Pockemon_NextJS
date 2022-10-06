@@ -6,7 +6,6 @@ import PokemonCard from "../components/PokemonCard";
 import NameSearch from "../components/NameSearch";
 import PowerSearch from "../components/PowerSearch";
 import styled from "styled-components";
-import images from "../public/images"
 
 const List = styled.div`
   display: grid;
@@ -16,20 +15,47 @@ const List = styled.div`
   text-align: center;
 `;
 
-
-const calculatePower = (pokemon: Pokemon) =>{
+const calculatePower = (pokemon: Pokemon) => {
   pokemon.total_points =
-  pokemon.hp +
-  pokemon.attack +
-  pokemon.defense +
-  pokemon.special_attack +
-  pokemon.special_defense +
-  pokemon.speed;
-}
-
+    pokemon.hp +
+    pokemon.attack +
+    pokemon.defense +
+    pokemon.special_attack +
+    pokemon.special_defense +
+    pokemon.speed;
+};
 
 const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
-  
+  const [pokemonsList, setPokemonsList] = useState(pokemons);
+  const [alertNameMessage, setAlertNameMessage] = useState("");
+  const [alertPowerMessage, setAlertPowerMessage] = useState("");
+
+  const handleSearchName = (searchName: string) => {
+    if (searchName.length === 0) {
+      setPokemonsList(pokemons);
+      setAlertNameMessage("Please enter something to search...");
+    } else {
+      setPokemonsList(
+        pokemons.filter((poke) =>
+          poke.name.toLocaleLowerCase().includes(searchName)
+        )
+      );
+      setAlertNameMessage("");
+    }
+  };
+
+  const handleSearchPower = (searchNum: number) => {
+    if (searchNum === 0) {
+      setPokemonsList(pokemons);
+      setAlertPowerMessage("Please enter a valid number...");
+    } else {
+      setPokemonsList(
+        pokemons.filter((poke) => poke.total_points >= searchNum)
+      );
+      setAlertPowerMessage("");
+    }
+  };
+
   return (
     <>
       <Head>
@@ -38,8 +64,10 @@ const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <NameSearch pokemons={pokemons} />
-        <PowerSearch />
+        <NameSearch handleSearchName={handleSearchName} />
+        <p style={{ color: "red" }}>{alertNameMessage}</p>
+        <PowerSearch handleSearchPower={handleSearchPower} />
+        <p style={{ color: "red" }}>{alertPowerMessage}</p>
         <div>Power threshold</div>
         <div>Count over threshold: </div>
         <div>Min: </div>
@@ -47,9 +75,9 @@ const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
       </div>
       <h1>Pokemon list</h1>
       <List>
-        {pokemons.map((pokemon) => {
-          calculatePower(pokemon)
-          return <PokemonCard pokemon={pokemon}/>;
+        {pokemonsList.map((pokemon) => {
+          calculatePower(pokemon);
+          return <PokemonCard pokemon={pokemon} />;
         })}
       </List>
     </>
