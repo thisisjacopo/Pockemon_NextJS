@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Pokemon } from "../interfaces/pokemon";
 
 const Button = styled.button`
   background: none;
@@ -25,11 +26,17 @@ const Input = styled.input`
   border: none;
   border-radius: 3px;
   min-width: 300px;
+  color: #333;
 `;
 
-const NameSearch = () => {
+const NameSearch = ({ pokemons }: { pokemons: Pokemon[] }) => {
   const handleNameSearch = () => {
-    console.log("serch name");
+    const input = document.getElementById("name-search") as HTMLInputElement;
+    const value = input?.value.toLowerCase();
+    const filteredList = pokemons.filter((poke) =>
+      poke.name.toLocaleLowerCase().includes(value)
+    );
+    console.log(filteredList, "filteredList");
   };
 
   return (
@@ -37,6 +44,7 @@ const NameSearch = () => {
       <label htmlFor="header-search">Catch 'em!</label>
       <Input
         type="text"
+        id="name-search"
         placeholder="Pikachu, Bulbasaur, ..."
         name="search name"
       />

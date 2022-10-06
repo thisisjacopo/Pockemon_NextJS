@@ -8,4 +8,6 @@ export interface Pokemon {
   special_attack: number;
   special_defense: number;
   speed: number;
+  total_points: number;
+  image?: HTMLImageElement;
 }

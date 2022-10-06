@@ -6,6 +6,7 @@ import PokemonCard from "../components/PokemonCard";
 import NameSearch from "../components/NameSearch";
 import PowerSearch from "../components/PowerSearch";
 import styled from "styled-components";
+import images from "../public/images"
 
 const List = styled.div`
   display: grid;
@@ -15,19 +16,20 @@ const List = styled.div`
   text-align: center;
 `;
 
-const calculatePower = (pokemon: Pokemon) =>
+
+const calculatePower = (pokemon: Pokemon) =>{
+  pokemon.total_points =
   pokemon.hp +
   pokemon.attack +
   pokemon.defense +
   pokemon.special_attack +
   pokemon.special_defense +
   pokemon.speed;
+}
+
 
 const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
-
-  const [nameSearch, setNameSearch] = useState("") 
-  const [powerSearch, setPowerSearch] = useState(null) 
-
+  
   return (
     <>
       <Head>
@@ -36,7 +38,7 @@ const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <NameSearch />
+        <NameSearch pokemons={pokemons} />
         <PowerSearch />
         <div>Power threshold</div>
         <div>Count over threshold: </div>
@@ -46,7 +48,8 @@ const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
       <h1>Pokemon list</h1>
       <List>
         {pokemons.map((pokemon) => {
-          return <PokemonCard pokemon={pokemon} />;
+          calculatePower(pokemon)
+          return <PokemonCard pokemon={pokemon}/>;
         })}
       </List>
     </>
