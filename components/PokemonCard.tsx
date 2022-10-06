@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface ImageProps extends React.ButtonHTMLAttributes<HTMLImageElement> {
   style: React.CSSProperties;
-  src: string,
+  src: string;
 }
 
 const Card = styled.div`
@@ -15,10 +15,16 @@ const Card = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #222;
-  background-color: #f4f4f4;
+  color: #e3e3e3;
+  border: 4px solid #e3e3e3;
   border-radius: 20px;
   box-shadow: 5px 15px 18px rgb(249, 249, 249, 0.5);
+  :hover {
+    color: #333;
+    background-image: linear-gradient(25deg, #decba4, #3e5151);
+
+    cursor: pointer;
+  }
 `;
 
 const BottomInfo = styled.div`
@@ -33,13 +39,13 @@ function Image({ style, src }: ImageProps) {
 }
 
 const PokemonCard = ({ pokemon }: any, totalPoints: number): JSX.Element => {
-  const imageSrc = `images/${pokemon.name.toLowerCase()}.jpg`; 
+  const imageSrc = `images/${pokemon.name.toLowerCase()}.jpg`;
   //* this should be perfected for not missing names that include special characters
-  
+
   let imgStyles = {
     width: "150px",
     height: "150px",
-    border: "1px solid #333",
+    border: "2px solid #333",
     borderRadius: " 50%",
     objectFit: "cover",
   };
