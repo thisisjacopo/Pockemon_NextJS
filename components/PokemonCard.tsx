@@ -23,17 +23,7 @@ const BottomInfo = styled.div`
 `;
 
 const PokemonCard = ({ pokemon }: any): JSX.Element => {
-  const poison = "#831ba1";
-  const grass = "#116c21";
-  const water = "#1155f3";
-  const fire = "#dc1933";
-  const flying = "#bfd6f3";
-  const bug = "#59562e";
-  const normal = "#676788";
-  const electric = "#e2db13";
-  const ground = "#999261";
-  const fairy = "#cf59b9";
-  const steel = "#c2c2c2";
+
   return (
     <Card color={pokemon.type}>
       <h2>Name:</h2>

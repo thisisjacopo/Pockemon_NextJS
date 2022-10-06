@@ -1,7 +1,10 @@
+import React, { useState } from "react";
 import Head from "next/head";
 import { Layout } from "../components/Layout";
 import { Pokemon } from "../interfaces/pokemon";
 import PokemonCard from "../components/PokemonCard";
+import NameSearch from "../components/NameSearch";
+import PowerSearch from "../components/PowerSearch";
 import styled from "styled-components";
 
 const List = styled.div`
@@ -21,6 +24,10 @@ const calculatePower = (pokemon: Pokemon) =>
   pokemon.speed;
 
 const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
+
+  const [nameSearch, setNameSearch] = useState("") 
+  const [powerSearch, setPowerSearch] = useState(null) 
+
   return (
     <>
       <Head>
@@ -29,10 +36,9 @@ const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <div>Search</div>
-        <input type="text"></input>
+        <NameSearch />
+        <PowerSearch />
         <div>Power threshold</div>
-        <input type="text"></input>
         <div>Count over threshold: </div>
         <div>Min: </div>
         <div>Max: </div>
