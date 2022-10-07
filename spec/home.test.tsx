@@ -4,6 +4,7 @@ import "./setupTests";
 
 import HomePage from "../pages";
 
+
 describe("Test HomePage component", () => {
   beforeEach(() => {
     jest.resetModules();

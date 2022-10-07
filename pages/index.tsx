@@ -80,22 +80,20 @@ const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
   };
 
   const handlePowersRange = (pokemonsList: Pokemon[]) => {
-    console.log(pokemonsList, "handlePowersRange");
     let powersList = Array();
 
-    pokemonsList.forEach((poke) => {
-      console.log(poke.total_points);
-      return powersList.push(poke.total_points);
-    });
+    pokemonsList &&
+      pokemonsList.length > 0 &&
+      pokemonsList.forEach((poke) => {
+        return powersList.push(poke.total_points);
+      });
 
     setMaxPower(powersList.sort((a, b) => b - a)[0]);
     setMinPower(powersList.sort((a, b) => a - b)[0]);
-
-    console.log(maxPower, "dfd");
   };
 
   useEffect(() => {
-    setTotalNum(pokemonsList.length);
+    pokemonsList && pokemonsList.length > 0 && setTotalNum(pokemonsList.length);
   }, [pokemonsList]);
 
   useEffect(() => {
@@ -124,10 +122,12 @@ const HomePage = ({ pokemons }: { pokemons: Pokemon[] }) => {
         </HeaderDiv>
         <h1>Pokemon list:</h1>
         <List>
-          {pokemonsList.map((pokemon) => {
-            calculatePower(pokemon);
-            return <PokemonCard pokemon={pokemon} />;
-          })}
+          {pokemonsList &&
+            pokemonsList.length > 0 &&
+            pokemonsList.map((pokemon) => {
+              calculatePower(pokemon);
+              return <PokemonCard pokemon={pokemon} />;
+            })}
         </List>
       </Container>
     </>

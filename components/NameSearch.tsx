@@ -30,10 +30,11 @@ const Input = styled.input`
   color: #333;
 `;
 
-const NameSearch = ({ handleSearchName }) => {
+const NameSearch = ({ handleSearchName }: any) => {
   const handleNameSearch = () => {
     const input = document.getElementById("name-search") as HTMLInputElement;
-    const value = input?.value.toLowerCase();
+    const value =
+      input && input.value !== undefined && input?.value.toLowerCase();
 
     handleSearchName(value);
   };

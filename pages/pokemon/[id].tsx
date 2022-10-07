@@ -1,18 +1,59 @@
 import React from "react";
 import Head from "next/head";
-
 import { Pokemon } from "../../interfaces/pokemon";
 import { Layout } from "../../components/Layout";
+import Link from "next/link";
+import SinglePokemonCard from "../../components/SinglePokemonCard";
+import styled from "styled-components";
 
-const PokemonPage = (props: Pokemon) => {
+const Button = styled.button`
+  background: none;
+  border: 2px solid #f5f5f5;
+  color: #f5f5f5;
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 22px;
+  margin: 16px;
+  cursor: pointer;
+  padding-left: 16px;
+  padding-right: 16px;
+  :hover {
+    color: #333;
+    background-color: #f5f5f5;
+    border: 2px solid #333;
+  }
+`;
+
+const HeaderDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
+
+const PokemonPage = (pokemon: Pokemon) => {
   return (
     <>
       <Head>
-        <title>{props.name}</title>
+        <title>{pokemon.name}</title>
       </Head>
-      <h1>{props.name}</h1>
-      <button>{`< Previous`}</button>
-      <button>{`Next >`}</button>
+
+      <HeaderDiv>
+        <Button>
+          {" "}
+          <Link href={`/pokemon/${pokemon.id - 1}`}>{`< Previous`}</Link>{" "}
+        </Button>
+        <Button>
+          {" "}
+          <Link href={`/pokemon/${+pokemon.id + 1}`}>{`Next >`}</Link>{" "}
+        </Button>
+        <Button>
+          {" "}
+          <Link href={`/`}>{`Home`}</Link>{" "}
+        </Button>
+      </HeaderDiv>
+      <SinglePokemonCard pokemon={pokemon} />
     </>
   );
 };
@@ -25,20 +66,10 @@ export async function getServerSideProps({
   params: { id: number };
 }) {
   try {
-    // Implement new endpoint in /api/pokemon/[id].ts and use it here
-    const pokemonExample: Pokemon = {
-      id: id,
-      name: "Bulbasaur",
-      type: ["Grass", "Poison"],
-      hp: 45,
-      attack: 49,
-      defense: 49,
-      special_attack: 65,
-      special_defense: 65,
-      speed: 45,
-      total_points: 520,
-    };
-    return { props: pokemonExample };
+    const pokemon = await fetch(`http://localhost:3000/api/pokemon/${id}`).then(
+      (resp) => resp.json()
+    );
+    return { props: pokemon };
   } catch (error) {
     return {
       notFound: true,

@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import Link from "next/link";
+import { Pokemon } from "../interfaces/pokemon";
 
 interface ImageProps extends React.ButtonHTMLAttributes<HTMLImageElement> {
   style: React.CSSProperties;
@@ -38,8 +40,14 @@ function Image({ style, src }: ImageProps) {
   return <img src={src} style={style}></img>;
 }
 
-const PokemonCard = ({ pokemon }: any, totalPoints: number): JSX.Element => {
-  const imageSrc = `images/${pokemon.name.toLowerCase()}.jpg`;
+const PokemonCard = (
+  { pokemon }: Pokemon | any,
+  totalPoints: number
+): JSX.Element => {
+  const imageSrc =
+    pokemon.name &&
+    pokemon.name !== undefined &&
+    `images/${pokemon.name.toLowerCase()}.jpg`;
   //* this should be perfected for not missing names that include special characters
 
   let imgStyles = {
@@ -47,38 +55,38 @@ const PokemonCard = ({ pokemon }: any, totalPoints: number): JSX.Element => {
     height: "150px",
     border: "2px solid #333",
     borderRadius: " 50%",
-    objectFit: "cover",
   };
 
   return (
-    <Card color={pokemon.type} key={pokemon.name}>
-      <h3>Name:</h3>
-      <h1>{pokemon.name}</h1>
-      <Image src={imageSrc} style={imgStyles} />
-      <h3>Type:</h3>
-      <p>
-        {pokemon.type.map((t: string) => {
-          return t + " ";
-        })}
-      </p>
-      <h3>Total Power:</h3>
-      <h2>{pokemon.total_points}</h2>
-      <div></div>
-      <BottomInfo>
-        <h5>HP:</h5>
-        <p>{pokemon.hp}</p>
-        <h5>Attack:</h5>
-        <p>{pokemon.attack}</p>
-        <h5>Defense:</h5>
-        <p>{pokemon.defense}</p>
-        <h5>Speed:</h5>
-        <p>{pokemon.speed}</p>
-        <h5>Special Attack:</h5>
-        <p>{pokemon.special_attack}</p>
-        <h5>Special Defense:</h5>
-        <p>{pokemon.special_defense}</p>
-      </BottomInfo>
-    </Card>
+    <Link href={`/pokemon/${pokemon.id}`} {...pokemon}>
+      <Card color={pokemon.type} key={pokemon.name}>
+        <h3>Name:</h3>
+        <h1>{pokemon.name}</h1>
+        <Image src={imageSrc} style={imgStyles} />
+        <h3>Type:</h3>
+        <p>
+          {pokemon &&
+            pokemon.type !== undefined &&
+            pokemon.type.map((t: string) => {
+              return t + " ";
+            })}
+        </p>
+        <BottomInfo>
+          <h5>HP:</h5>
+          <p>{pokemon.hp}</p>
+          <h5>Attack:</h5>
+          <p>{pokemon.attack}</p>
+          <h5>Defense:</h5>
+          <p>{pokemon.defense}</p>
+          <h5>Speed:</h5>
+          <p>{pokemon.speed}</p>
+          <h5>Special Attack:</h5>
+          <p>{pokemon.special_attack}</p>
+          <h5>Special Defense:</h5>
+          <p>{pokemon.special_defense}</p>
+        </BottomInfo>
+      </Card>
+    </Link>
   );
 };
 

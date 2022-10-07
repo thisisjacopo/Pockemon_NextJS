@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+
 const Button = styled.button`
   background: none;
   border: 2px solid #f5f5f5;
@@ -32,7 +33,7 @@ const Input = styled.input`
   -webkit-appearance: textfield;
 `;
 
-const PowerSearch = ({ handleSearchPower }) => {
+const PowerSearch = ({ handleSearchPower } : any) => {
   const handlePowerSearch = () => {
     const input = document.getElementById("power-search") as HTMLInputElement;
     const value = input?.value;
